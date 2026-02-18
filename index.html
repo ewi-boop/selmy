@@ -356,7 +356,7 @@
       <div class="teams">
         <a href="https://ewideveloper.eu" target="_blank" rel="noopener" style="text-decoration:none;">
           <div class="team">
-            <img src="karty/brzy.jpg" alt="Partner 1"/>
+            <img src="karty/brzy.png" alt="Partner 1"/>
           </div>
         </a>
         <a href="https://ewideveloper.eu" target="_blank" rel="noopener" style="text-decoration:none;">
@@ -464,104 +464,7 @@
   }
 
   const events = [];
-  const year = 2025;
-
-  // Venku (duben–říjen) Po + Čt 18:00–19:30
-  for(let month=3; month<=9; month++){ // 3 = duben, 9 = říjen
-    const daysInMonth = new Date(year, month+1, 0).getDate();
-    for(let day=1; day<=daysInMonth; day++){
-      const d = new Date(year, month, day);
-      const weekday = d.getDay(); // 0=Ne,1=Po,2=Út,...
-      if(weekday === 1 || weekday === 4){ // pondělí nebo čtvrtek
-        events.push({
-          date: `${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`,
-          type: 'training',
-          time: '18:00–19:30',
-          place: 'venku'
-        });
-      }
-    }
-  }
-
-  // Hala (říjen–duben) Út 19:00–20:00
-  // říjen–prosinec 2025 + leden–duben 2026
-  for(let month of [9,10,11,0,1,2,3]){ 
-    const yr = (month <= 8) ? 2025 : 2026; 
-    const daysInMonth = new Date(yr, month+1, 0).getDate();
-    for(let day=1; day<=daysInMonth; day++){
-      const d = new Date(yr, month, day);
-      const weekday = d.getDay(); // 0=Ne,1=Po,2=Út,...
-      if(weekday === 2){ // úterý
-        events.push({
-          date: `${yr}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`,
-          type: 'training',
-          time: '19:00–20:00',
-          place: 'hala'
-        });
-      }
-    }
-  }
-
-  // --- Kalendář ---
-  let currentMonth = new Date().getMonth();
-  let currentYear = new Date().getFullYear();
-
-  const monthNames = ["Leden","Únor","Březen","Duben","Květen","Červen","Červenec","Srpen","Září","Říjen","Listopad","Prosinec"];
-  const dayNames = ["Po","Út","St","Čt","Pá","So","Ne"];
-
-  function renderCalendar(){
-    const grid = document.getElementById('calendar-grid');
-    grid.innerHTML = '';
-    document.getElementById('calendar-month-year').textContent = monthNames[currentMonth] + " " + currentYear;
-
-    // Hlavička dnů
-    dayNames.forEach(dn=>{
-      const dh = document.createElement('div');
-      dh.className='calendar-day-header';
-      dh.textContent=dn;
-      grid.appendChild(dh);
-    });
-
-    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-    const startOffset = (firstDay===0?6:firstDay-1);
-
-    for(let i=0;i<startOffset;i++){
-      const empty = document.createElement('div');
-      empty.className='calendar-day calendar-empty';
-      grid.appendChild(empty);
-    }
-
-    const daysInMonth = new Date(currentYear, currentMonth+1,0).getDate();
-    for(let d=1; d<=daysInMonth; d++){
-      const dayDiv = document.createElement('div');
-      dayDiv.className='calendar-day';
-      dayDiv.dataset.day = d;
-      dayDiv.textContent = d;
-
-      const today = new Date();
-      if(today.getDate()===d && today.getMonth()===currentMonth && today.getFullYear()===currentYear){
-        dayDiv.classList.add('calendar-today');
-      }
-
-      events.forEach(ev=>{
-        const evDate = new Date(ev.date);
-        if(evDate.getDate()===d && evDate.getMonth()===currentMonth && evDate.getFullYear()===currentYear){
-          const eventDiv = document.createElement('div');
-          eventDiv.className = 'calendar-event';
-          eventDiv.textContent = `Trénink ${ev.time} (${ev.place})`;
-          eventDiv.style.background = ev.place === 'hala' ? '#7a91ff55' : '#2bb39a55';
-          dayDiv.appendChild(eventDiv);
-        }
-      });
-
-      grid.appendChild(dayDiv);
-    }
-  }
-
-  function prevMonth(){currentMonth--; if(currentMonth<0){currentMonth=11; currentYear--;} renderCalendar();}
-  function nextMonth(){currentMonth++; if(currentMonth>11){currentMonth=0; currentYear++;} renderCalendar();}
-
-  renderCalendar();
+  const year = 2025;  
 </script>
 
 </body>
